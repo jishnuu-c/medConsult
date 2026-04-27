@@ -1,0 +1,59 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+/* Card like list item */
+.doctor-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 15px;
+  border-radius: 12px;
+  background: #ffffff;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: 0.2s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Round Image */
+.avatar {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;   /* 🔵 makes it round */
+  object-fit: cover;
+  border: 2px solid #eee;
+}
+
+/* Info section */
+.doctor-info h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.doctor-info h4 {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.bio {
+  font-size: 13px;
+  color: #777;
+}

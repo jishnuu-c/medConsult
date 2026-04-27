@@ -1,0 +1,41 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <!-- Username -->
+  <label>Full Name</label>
+  <input type="text" formControlName="username">
+
+  <div *ngIf="loginForm.get('username')?.touched">
+    <small *ngIf="loginForm.get('username')?.errors?.['required']">
+      fullname is required
+    </small>
+    <small *ngIf="loginForm.get('username')?.errors?.['minlength']">
+      Minimum 4 characters required
+    </small>
+  </div>
+
+  <!-- Password -->
+  <label>Password</label>
+  <input type="password" formControlName="password">
+
+  <div *ngIf="loginForm.get('password')?.touched">
+    <small *ngIf="loginForm.get('password')?.errors?.['required']">
+      Password is required
+    </small>
+    <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+      Minimum 6 characters required
+    </small>
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">
+    Login
+  </button>
+  <div *ngIf="errorMsg" style="color: red;">
+  {{ errorMsg }}
+</div>
+ <p class="login-link">
+   
+    
+    <a routerLink="/drregister">dr</a>
+  </p>
+
+</form>

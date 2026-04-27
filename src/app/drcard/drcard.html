@@ -1,0 +1,22 @@
+<div class="card-container">
+  <div 
+    class="doctor-card" 
+    *ngFor="let doc of doctors"
+    (click)="goToProfile(doc.id)"
+  >
+
+    <!-- Doctor Image -->
+    <div class="avatar">
+     <img src="images/Drarjun.jpeg" alt="Doctor Image" />
+    </div>
+
+    <!-- Doctor Info -->
+    <div class="doctor-info">
+      <h2>Dr {{ doc.name }}</h2>
+      
+      <h4> {{ doc.specialization }}</h4>
+      <p class="bio">{{ doc.bio }}</p>
+    </div>
+
+  </div>
+</div>

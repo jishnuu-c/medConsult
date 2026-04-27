@@ -1,0 +1,59 @@
+
+  <div *ngIf="doctor" class="card">
+    <!-- Top bar -->
+    <div class="topbar">
+      <button class="back-btn" aria-label="Go back"   (click)="gotoback()">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+      <h1>Doctor Profile</h1>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="avatar">
+        <img src="images/Drarjun.jpeg" alt="Doctor" />
+      </div>
+      <div class="doctor-name">{{ doctor.name }}</div>
+      <div class="doctor-meta">
+        {{ doctor.specialization }} <span class="dot">·</span>{{ doctor.yearsExperience }} years.
+      </div>
+      <div class="stars">
+        <span class="stars-icons">★★★★★</span>
+        <span class="stars-score">4.9</span>
+        <span class="stars-count">(128 reviews)</span>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="info-section">
+      <div class="info-label">Info</div>
+
+      <div class="info-row">
+        <span class="info-key">Hospital</span>
+        <span class="info-val">{{ doctor.hospitalAffiliation }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Languages</span>
+        <span class="info-val">{{ doctor.languagesSpoken }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Availability</span>
+        <span class="info-val available">Available today</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" (click)="goToSchedule(doctor.id)">Book Consult</button>
+      <button class="btn btn-secondary">Send Message</button>
+    </div>
+  </div>
+
