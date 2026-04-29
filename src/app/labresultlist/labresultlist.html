@@ -41,113 +41,183 @@
       </div>
 
       <div class="lab-card-right">
-        <span
-          class="status-badge"
-          [ngClass]="{
-            'status-pending': result.labStatus === 'PENDING',
-            'status-completed': result.labStatus === 'COMPLETED',
-            'status-reviewed': result.labStatus === 'REVIEWED',
-          }"
-          >{{ result.labStatus }}</span
-        >
-        <svg
-          class="chevron"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
-      </div>
+  <span
+  class="status-badge"
+  [ngClass]="{
+    'status-pending': result.labStatus === 'PENDING',
+    'status-reviewed': result.labStatus === 'REVIEWED',
+    'status-flagged': result.labStatus === 'FLAGGED'
+  }"
+>
+  {{ result.labStatus === 'REVIEWED' ? 'NORMAL' :result.labStatus === 'FLAGGED' ? 'ABNORMAL' : (result.labStatus || 'PENDING') }}
+</span>
+
+  <svg
+    class="chevron"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+</div>
     </div>
   </div>
 </div>
 
 <!-- MODAL POPUP -->
-<div *ngIf="showModal" class="modal-overlay">
+<!-- Modal Overlay -->
+<div *ngIf="showModal && selectedResult" class="modal-overlay">
+
+  <!-- Modal Box -->
   <div class="modal-panel">
-    
-    
+
+    <!-- HEADER -->
     <div class="modal-header">
       <div>
-        <h2 class="modal-panel-name">{{ selectedResult?.panelName }}</h2>
-        <p class="modal-meta">{{ selectedResult?.testDate }}</p>
+        <h2 class="modal-panel-name">
+          {{ selectedResult.panelName }}
+        </h2>
+        <p class="modal-meta">
+          {{ selectedResult.testDate }}
+        </p>
       </div>
+
       <div class="modal-header-right">
         <span
-          class="status-badge lg"
-          [ngClass]="{
-            'status-pending': selectedResult?.labStatus === 'PENDING',
-            'status-completed': selectedResult?.labStatus === 'COMPLETED',
-            'status-reviewed': selectedResult?.labStatus === 'REVIEWED',
-          }"
-          >{{ selectedResult?.labStatus }}</span
-        >
-        <button class="close-btn" (click)="closeModal()">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+  class="status-badge"
+  [ngClass]="{
+    'status-pending': (selectedResult.labStatus||'PENDING' )=== 'PENDING',
+    'status-reviewed': selectedResult.labStatus === 'REVIEWED',
+    'status-flagged': selectedResult.labStatus === 'FLAGGED'
+  }"
+>
+  {{ selectedResult?.labStatus || 'PENDING' }}
+</span>
+
+        <button class="close-btn" (click)="closeModal()">✖</button>
       </div>
     </div>
 
+    <!-- DOCTORS -->
     <div class="modal-doctors">
       <div class="doctor-chip">
         <span class="doctor-label">Ordered by</span>
-        <span class="doctor-name">{{ selectedResult?.orderedBy?.name }}</span>
-        <span class="doctor-spec">{{ selectedResult?.orderedBy?.specialization }}</span>
+        <span class="doctor-name">
+          {{ selectedResult.orderedBy?.name }}
+        </span>
+        <span class="doctor-spec">
+          {{ selectedResult.orderedBy?.specialization }}
+        </span>
       </div>
+
       <div class="doctor-divider"></div>
-      <div class="doctor-chip">
-        <span class="doctor-label">Reviewed by</span>
-        <span class="doctor-name">{{ selectedResult?.reviewedBy?.name }}</span>
-        <span class="doctor-spec">{{ selectedResult?.reviewedBy?.specialization }}</span>
-      </div>
+
+      <div class="doctor-chip" *ngIf="selectedResult.reviewedBy">
+  <span class="doctor-label">Reviewed by</span>
+
+  <span class="doctor-name">
+    {{ selectedResult.reviewedBy?.name }}
+  </span>
+
+  <span class="doctor-spec">
+    {{ selectedResult.reviewedBy?.specialization }}
+  </span>
+</div>
+
+    <!-- BODY --><!-- BODY -->
+<div class="modal-body">
+
+  <h4 class="section-title">Test Items</h4>
+
+  <div class="items-table">
+
+    <!-- TABLE HEADER -->
+    <div class="items-table-head">
+      <span>Test Name</span>
+      <span>Value</span>
+      <span>Range</span>
+      <span>Status</span>
     </div>
 
-    <div class="modal-body">
-      <h4 class="section-title">Test Items</h4>
-      <div class="items-table">
-        <div class="items-table-head">
-          <span>Test Name</span>
-          <span>Value</span>
-          <span>Status</span>
-        </div>
-        <div class="items-table-row" *ngFor="let item of selectedResult?.labItems">
-          <span class="item-name">{{ item.testName }}</span>
-          <span class="item-value"
-            >{{ item.value }} <span class="item-unit">{{ item.unit }}</span></span
-          >
-          <span
-            class="item-status"
-            [ngClass]="{
-              'item-high': item.itemStatus === 'HIGH',
-              'item-low': item.itemStatus === 'LOW',
-              'item-normal': item.itemStatus === 'NORMAL',
-            }"
-          >
-            <span class="item-dot"></span>
-            {{ item.itemStatus }}
-          </span>
-        </div>
-      </div>
+    <!-- TABLE ROWS -->
+    <div class="items-table-row" *ngFor="let item of selectedResult.labItems">
+
+      <!-- Test Name -->
+      <span class="item-name">
+        {{ item.testName }}
+      </span>
+
+      <!-- Value -->
+      <span class="item-value">
+        {{ item.value }}
+        <span class="item-unit">{{ item.unit }}</span>
+      </span>
+
+      <!-- Reference Range -->
+      <span class="item-range">
+        {{ item.referenceMin }} - {{ item.referenceMax }}
+        <span class="item-unit">{{ item.unit }}</span>
+      </span>
+
+      <!-- Status -->
+      <span
+        class="item-status"
+        [ngClass]="{
+          'item-high': item.itemStatus === 'HIGH',
+          'item-low': item.itemStatus === 'LOW',
+          'item-normal': item.itemStatus === 'NORMAL',
+          'item-critical': item.itemStatus === 'CRITICAL',
+        }"
+      >
+        <span class="item-dot"></span>
+        {{ item.itemStatus }}
+      </span>
+
     </div>
 
-    <div class="modal-footer" *ngIf="selectedResult?.doctorNotes">
-      <h4 class="section-title">Doctor Notes</h4>
-      <p class="doctor-notes">{{ selectedResult?.doctorNotes }}</p>
-    </div>
-    
+  </div>
+
+
+  <form [formGroup]="labForm" class="status-form">
+
+  <!-- STATUS SELECT -->
+  <div class="status-select">
+    <label>Select Status</label>
+
+    <select formControlName="labStatus">
+      <option value="">-- Select --</option>
+      <option value="REVIEWED">Reviewed</option>
+      <option value="FLAGGED">Flagged</option>
+    </select>
+  </div>
+
+  <!-- DOCTOR NOTES -->
+  <div class="doctor-notes">
+    <label>Doctor Notes</label>
+
+    <textarea
+      rows="4"
+      placeholder="Enter notes..."
+      formControlName="doctorNotes"
+    ></textarea>
+  </div>
+
+  <!-- SUBMIT -->
+  <button 
+  type="button"
+  class="btn submit"
+  [disabled]="!labForm.value.labStatus"
+  (click)="submitStatus()">
+  Submit
+</button>
+
+</form>
+</div>
+</div>
+
   </div>
 </div>

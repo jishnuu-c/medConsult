@@ -1,8 +1,13 @@
+*{
+    margin: 0px;
+    padding: 0px;
+   
+}
 .card-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 20px;
+  
 }
 
 /* Card like list item */

@@ -28,6 +28,7 @@ export class Drprofile implements OnInit {
     if (id) {
       this.doctorService.getDoctorById(id).subscribe({
         next: (res) => {
+          console.log('doctor:',res)
           this.doctor = res;
           this.cd.detectChanges()
         },

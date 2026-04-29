@@ -10,6 +10,8 @@ import { Addschedule } from './addschedule/addschedule';
 
 import { Labresultlist } from './labresultlist/labresultlist';
 import { LayoutComponent } from './layout/layout';
+import { Alllabresults } from './alllabresults/alllabresults';
+import { Appointment } from './appointment/appointment';
 
 
 export const routes: Routes = [
@@ -24,5 +26,7 @@ export const routes: Routes = [
     { path: 'addschedule/:id', component: Addschedule },
     { path: 'labresults/:id', component: Labresultlist },
      { path: 'layout', component: LayoutComponent },
+     { path: 'allresults', component: Alllabresults },
+     { path: 'appointments', component: Appointment },
    
 ];

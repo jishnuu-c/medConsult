@@ -14,7 +14,7 @@ import { DoctorService } from '../services/doctor';
 export class Addschedule {
   scheduleForm: FormGroup;
 
-  days = ['MONDAY', 'TUESDAY', ' WEDNESDAY', ' THURSDAY', ' FRIDAY', ' SATURDAY', ' SUNDAY'];
+  days = ['MONDAY', 'TUESDAY', ' WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
 
   constructor(
     private fb: FormBuilder,
@@ -38,6 +38,9 @@ export class Addschedule {
     this.doctorId = this.route.snapshot.paramMap.get('id')!;
   }
 
+  successMessage = '';
+  errorMessage = '';
+
   onSubmit() {
     if (this.scheduleForm.valid) {
       const payload = this.scheduleForm.value;
@@ -45,14 +48,20 @@ export class Addschedule {
 
       this.doctorService.registerSchedule(this.doctorId, payload).subscribe({
         next: (res) => {
+          this.successMessage = 'Schedule added successfully!';
+          this.errorMessage = '';
           console.log('Schedule added successfully', res);
           this.scheduleForm.reset();
         },
         error: (err) => {
+          this.errorMessage = 'Failed to add schedule. Try again.';
+          this.successMessage = '';
           console.error('Error adding schedule', err);
         },
       });
     } else {
+      this.errorMessage = 'Please fill all required fields correctly';
+      this.successMessage = '';
       console.log('Form is invalid');
     }
   }

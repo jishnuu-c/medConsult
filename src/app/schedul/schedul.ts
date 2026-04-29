@@ -25,7 +25,7 @@ export class Schedul implements OnInit {
   bookingForm!: FormGroup;
 
   // ⚠️ Replace later with logged-in user
-  patientId = 'c3d68f36-ee08-4fd4-8f85-71f1fa2a2157';
+  patientId = '75d2c2f6-2faa-46c0-b7c5-ee9647e44b53';
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +43,7 @@ export class Schedul implements OnInit {
     if (this.doctorId) {
       this.doctorService.getscheduleById(this.doctorId).subscribe({
         next: (res: any) => {
+          console.log('drshedule:',res)
           this.doctor = Array.isArray(res) ? res : [res];
           this.cd.detectChanges();
         },
@@ -61,6 +62,7 @@ export class Schedul implements OnInit {
 
   // 🔥 open popup
   openBooking(schedule: any) {
+    console.log('popup:',schedule)
     this.selectedSchedule = schedule;
     this.showBookingForm = true;
     this.bookingForm.reset();
@@ -73,6 +75,7 @@ export class Schedul implements OnInit {
 
   // 🔥 submit booking
   submitBooking() {
+    console.log('click conform',this.submitBooking)
     if (this.bookingForm.invalid) {
       this.bookingForm.markAllAsTouched();
       return;       

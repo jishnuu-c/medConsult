@@ -1,4 +1,8 @@
 /* ── Variables ─────────────────────────────────── */
+*{
+  margin: 0;
+  padding: 0;
+}
 :host {
   --accent:      #1BC98A;
   --accent-dim:  #1BC98A18;
@@ -183,3 +187,4 @@
   min-height: calc(100vh - var(--navbar-h));
   color: var(--text-primary);
 }
+

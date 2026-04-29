@@ -32,6 +32,15 @@ export class DoctorService {
   //   return this.http.get(this.apiUrl +'/lab-result/all');
   // }
 
+  getAppointments(doctorId: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/doctors/${doctorId}/appointments`);
+}
+
+
+  getAllPatients() {
+  return this.http.get<any[]>(`${this.apiUrl}/patients/all`);
+}
+
   getLabResults(patientId: string) {
   return this.http.get<any[]>(`${this.apiUrl}/lab-result/patient/${patientId}`);
 }
@@ -41,14 +50,13 @@ getLabResultDetails(labResultId: string) {
   );
 }
 
-  // getPatientByDrId(){
-  //   return this.http.get(this.apiUrl +'/lab-result/{patientId}')
-  // }
-  
+  updateLabStatus(id: string, data:any) {
+  return this.http.put(
+    `${this.apiUrl}/lab-result/${id}/review`,data
+   
+  );
+}
 
-  // saveUser(){
-  //   return this.http.post(this.apiUrl + '/register');
-  // }
   registerUser(data: any) {
     return this.http.post(this.apiUrl + '/auth/register', data);
   }
@@ -61,8 +69,9 @@ getLabResultDetails(labResultId: string) {
 
 bookConsultation(doctorId: string, patientId: string, data: any) {
   return this.http.post(
-    `${this.apiUrl}/doctors/${doctorId}/book_consultation/${patientId}`,
+    `${this.apiUrl}/doctors/${doctorId}/appointment/${patientId}`,
     data
   );
 }
+
 }
