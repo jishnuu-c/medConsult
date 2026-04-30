@@ -30,6 +30,7 @@ labResults: any[] = [];
   }
 
   goTolabresult(patientId: string) {
+    if (!patientId) return;
     this.router.navigate(['/labresults', patientId]);
   }
 
@@ -39,7 +40,7 @@ labResults: any[] = [];
   this.labService.getAllPatients()
     .subscribe((res:any) => {
       console.log('this is', res);
-      this.labResults = res;
+      this.labResults = res  ?? [];
       this.cd.detectChanges();   // ✅ THIS LINE IS MISSING
     });
 }

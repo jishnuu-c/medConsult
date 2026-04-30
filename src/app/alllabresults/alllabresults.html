@@ -1,13 +1,16 @@
 <div>
   <h3 class="lab-title">All Lab Results</h3>
 
+  <!-- ✅ IF DATA EXISTS -->
   <div class="lab-list">
+
     <div
       class="lab-card"
       *ngFor="let result of labResults"
       (click)="goTolabresult(result.patientId)"
     >
       <div class="lab-card-left">
+
         <div class="panel-icon">
           <svg
             width="16"
@@ -22,11 +25,18 @@
             <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
         </div>
+
         <div class="lab-card-info">
-          <span class="panel-name">{{ result.user.fullName }}</span>
-         
+          <span class="panel-name">
+            {{  result?.user?.fullName }}
+          </span>
         </div>
+
       </div>
     </div>
+
   </div>
+
+  
+
 </div>

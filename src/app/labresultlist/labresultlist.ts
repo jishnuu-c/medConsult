@@ -71,6 +71,12 @@ labForm:FormGroup;
           return;
         }
         this.selectedResult = res;
+         // ✅ 👉 THIS IS THE FIX
+      this.labForm.patchValue({
+        labStatus: res.labStatus || '',
+        doctorNotes: res.doctorNotes || ''
+      });
+
         this.showModal = true;
         this.cd.detectChanges();
       },
@@ -116,6 +122,7 @@ labForm:FormGroup;
 
       // ✅ modal update
       this.selectedResult.labStatus = payload.labStatus;
+      this.selectedResult.doctorNotes = payload.doctorNotes; // ✅ ADD THIS
 
       if (payload.labStatus === 'REVIEWED') {
         this.selectedResult.reviewedBy = {
